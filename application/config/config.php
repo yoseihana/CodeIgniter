@@ -69,7 +69,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'french';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -279,7 +279,7 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE; //gestion de la sécurité sur le filtrage en GET et POST pr formulaire MAIS prend des ressources
+$config['global_xss_filtering'] = TRUE; //gestion de la sécurité sur le filtrage en GET et POST pr formulaire MAIS prend des ressources
 
 /*
 |--------------------------------------------------------------------------
@@ -293,7 +293,7 @@ $config['global_xss_filtering'] = FALSE; //gestion de la sécurité sur le filtr
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = FALSE; //Protection qui peut être activée
+$config['csrf_protection'] = TRUE; //Protection qui peut être activée
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;

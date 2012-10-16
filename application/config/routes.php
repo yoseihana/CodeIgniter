@@ -38,7 +38,11 @@
 |
 */
 
-$route['default_controller'] = "prof";
+$route['default_controller'] = "membre";
+$route['prof/lister/spec/:num'] = 'prof/lister';
+$route['prof/voir/:num'] = 'prof/lister';
+$route['prof/lister/:any'] ='"404';
+$route['prof/voir/:any'] = '404';
 $route['404_override'] = '';
 
 
