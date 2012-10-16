@@ -24,7 +24,7 @@
             </p>
             <?php else: ?>
             <p class="adopte">
-                <?php echo anchor('prof/adopte/'.$prof->prof_id, "Je libère ce prof!", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?>
+                <?php echo anchor('prof/libere/'.$prof->prof_id, "Je libère ce prof!", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?>
             </p>
             <?php endif; ?>
         </li> <!-- Permet d'utiliser des caractéristiques de l'objet $prof (avec la requete SQL) -->

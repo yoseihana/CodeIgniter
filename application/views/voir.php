@@ -14,15 +14,25 @@
         <?php echo $prof->cv?>
     </div>
         <p class="adopte">
-            <?php echo anchor('prof/adopte/'.$prof->prof_id, "J'adopte ce prof!", array('title'=>'J\'adopte '.$prof->prenom, 'hreflang'=>'fr')); ?>
+            <?php if(!isset($deja_adoptes[$prof->prof_id])): ?>
+                <p class="adopte">
+                    <?php echo anchor('prof/adopte/'.$prof->prof_id, "J'adopte ce prof!", array('title'=>'J\'adopte '.$prof->prenom, 'hreflang'=>'fr')); ?>
+                </p>
+                <?php else: ?>
+                <p class="adopte">
+                    <?php echo anchor('prof/libere/'.$prof->prof_id, "Je libère ce prof!", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?>
+                </p>
+            <?php endif; ?>
         </p>
+        <?php if($deja_adoptes): ?>
+        <div id="panier">
+            <ul>
+                <?php foreach($deja_adoptes as $prof): ?>
+                <li><?php echo $prof->nom.' '.$prof->prenom ?> -  <?php echo anchor('prof/libere/'.$prof->prof_id, "Je le libère", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
 <p id="voirliste">
     <?php echo anchor('prof/', "Retour à la liste des profs", array('title'=>'retour aux fiches', 'hreflang'=>'fr')); ?>
 </p>
-<div id="panier">
-<ul>
-    <?php foreach($deja_adoptes as $prof): ?>
-    <li><?php echo $prof->nom.' '.$prof->prenom ?> -  <?php echo anchor('prof/libere/'.$prof->prof_id, "Je le libère", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?></li>
-    <?php endforeach; ?>
-</ul>
-</div>

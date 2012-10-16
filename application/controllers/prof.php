@@ -24,6 +24,9 @@ class Prof extends CI_Controller {
 
     public function lister()
     {
+        //Url mémorisée
+        $this->session->set_flashdata('current_url', current_url());
+
         $this->load->model('M_Prof');
 
         $uriSegement = $this->uri->segment(3);
@@ -47,13 +50,15 @@ class Prof extends CI_Controller {
 
     public function voir()
     {
+        $this->session->set_flashdata('current_url', current_url());
+
         $this->load->model('M_Prof');
         $id_prof = $this->uri->segment(3);
 
         $dataProf['prof']=$this->M_Prof->voir($id_prof);
         $dataLayout['titre'] = 'Fiche '.$dataProf['prof']->nom.' '.$dataProf['prof']->prenom;
-        $dataLayout['deja_adoptes'] = $this->session->userdata('deja_adoptes');
-        
+        $dataProf['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+
         $dataLayout['vue'] = $this->load->view('voir', $dataProf, true);
 
         $this->load->view('layout', $dataLayout);
@@ -74,7 +79,8 @@ class Prof extends CI_Controller {
         $this->session->set_userdata(array('deja_adoptes'=>$deja_adopte));
 
         //Redirection car pas de vue
-        redirect('/prof/lister/');
+        //redirect('/prof/lister/');
+        redirect($this->session->flashdata('current_url'));
 
     }
 
@@ -89,7 +95,8 @@ class Prof extends CI_Controller {
 
         //Re création du tableau deja_adoptes avec les éléments qui restent
         $this->session->set_userdata('deja_adoptes', $deja_adopte);
-        redirect('/prof/lister/');
+        //redirect('/prof/lister/');
+        redirect($this->session->flashdata('current_url'));
     }
 }
 
