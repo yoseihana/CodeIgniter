@@ -31,15 +31,17 @@ class Prof extends CI_Controller {
         if($uriSegement == 'spec'){
 
             $idspec = $this->uri->segment(4);
-
             $dataList['profs'] = $this->M_Prof->listerSpec($idspec);
+            $dataLayout['titre'] = 'Liste des prof de '.$dataList['profs'][0]->specialite;
 
         }else{
             $dataList['profs'] = $this->M_Prof->lister(); //Va reprendre les données SQL demander dans m_prof et la methode lister
+            $dataLayout['titre'] = 'Accueil';
         }
 
-        $dataLayout['vue'] = $this->load->view('lister_profs', $dataList, true); //True = récupérer la vue comme une chaine de caractère, on envoie les vues à chargée
-        $dataLayout['titre'] = 'Accueil';
+        $dataList['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+
+        $dataLayout['vue'] = $this->load->view('lister', $dataList, true); //True = récupérer la vue comme une chaine de caractère, on envoie les vues à chargée
         $this->load->view('layout', $dataLayout); //Charger la vue finale
     }
 
@@ -51,9 +53,33 @@ class Prof extends CI_Controller {
         $dataProf['prof']=$this->M_Prof->voir($id_prof);
         $dataLayout['titre'] = 'Fiche '.$dataProf['prof']->nom.' '.$dataProf['prof']->prenom;
 
-        $dataLayout['vue'] = $this->load->view('voir_prof', $dataProf, true);
+        $dataLayout['vue'] = $this->load->view('voir', $dataProf, true);
 
         $this->load->view('layout', $dataLayout);
+    }
+
+    public function adopte()
+    {
+        $id = $this->uri->segment(3);
+        $this->load->model('M_Prof');
+
+        $prof = $this->M_Prof->voir($id);
+
+        //Regarde si un prof a déjà été adopté, récupère les infos via userdata dans la session
+        $deja_adopte = $this->session->userdata('deja_adoptes') ? $this->session->userdata('deja_adoptes') : array();
+        $deja_adopte[$id] = $prof;
+
+       //Enregistre dans la session avec set_userdata -> on a enregistrer le prof adopter
+        $this->session->set_userdata(array('deja_adoptes'=>$deja_adopte));
+
+        //Redirection car pas de vue
+        redirect('/prof/lister/');
+
+    }
+
+    public function libere()
+    {
+
     }
 }
 
