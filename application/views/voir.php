@@ -33,6 +33,9 @@
             </ul>
         </div>
         <?php endif; ?>
+<p class="adopte">
+    <?php echo anchor('membre/', "Se deconnecter", array('title'=>'Se déconnecter', 'hreflang'=>'fr')); ?>
+</p>
 <p id="voirliste">
     <?php echo anchor('prof/', "Retour à la liste des profs", array('title'=>'retour aux fiches', 'hreflang'=>'fr')); ?>
 </p>

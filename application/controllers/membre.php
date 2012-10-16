@@ -37,10 +37,7 @@ class Membre extends CI_Controller {
 
     public function unlogin()
     {
-       // $loggedin = $this->session->userdata('loggedin');
-        //unset($loggedin);
-
-        //redirect('/prof/lister/');
-        //redirect($this->session->flashdata('current_url'));
+        $this->session->unset_userdata('logged_in');
+        redirect('membre');
     }
 }

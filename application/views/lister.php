@@ -40,9 +40,8 @@
         </ul>
     </div>
     <?php endif; ?>
-
     <p class="adopte">
-        <?php echo anchor('prof/adopte/', "Se deconnecter", array('title'=>'Se déconnecter', 'hreflang'=>'fr')); ?>
+        <?php echo anchor('membre/', "Se deconnecter", array('title'=>'Se déconnecter', 'hreflang'=>'fr')); ?>
     </p>
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
