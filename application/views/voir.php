@@ -19,3 +19,10 @@
 <p id="voirliste">
     <?php echo anchor('prof/', "Retour à la liste des profs", array('title'=>'retour aux fiches', 'hreflang'=>'fr')); ?>
 </p>
+<div id="panier">
+<ul>
+    <?php foreach($deja_adoptes as $prof): ?>
+    <li><?php echo $prof->nom.' '.$prof->prenom ?> -  <?php echo anchor('prof/libere/'.$prof->prof_id, "Je le libère", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?></li>
+    <?php endforeach; ?>
+</ul>
+</div>

@@ -2,7 +2,7 @@
 	<h1>Adopte un prof!</h1>
 
 	<div id="body">
-        <h1>Liste des profs - <?php ?></h1>
+        <h1><?php echo $titre; ?></h1>
 	</div>
     <?php if(count($profs)): ?>
     <?php foreach($profs as $prof): ?>
@@ -22,19 +22,23 @@
             <p class="adopte">
                 <?php echo anchor('prof/adopte/'.$prof->prof_id, "J'adopte ce prof!", array('title'=>'J\'adopte '.$prof->prenom, 'hreflang'=>'fr')); ?>
             </p>
+            <?php else: ?>
+            <p class="adopte">
+                <?php echo anchor('prof/adopte/'.$prof->prof_id, "Je libère ce prof!", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?>
+            </p>
             <?php endif; ?>
         </li> <!-- Permet d'utiliser des caractéristiques de l'objet $prof (avec la requete SQL) -->
      <?php endforeach; ?>
     <?php endif ?>
     <!-- On compte si il y a déjà un prof dans le tableau -->
-    <?php if(count($deja_adoptes)): ?>
+    <?php if($deja_adoptes): ?>
     <div id="panier">
          <ul>
         <?php foreach($deja_adoptes as $prof): ?>
-             <li><?php echo $prof->nom.' '.$prof->prenom ?> - Je le libère</li>
+             <li><?php echo $prof->nom.' '.$prof->prenom ?> -  <?php echo anchor('prof/libere/'.$prof->prof_id, "Je le libère", array('title'=>'Je libère '.$prof->prenom, 'hreflang'=>'fr')); ?></li>
         <?php endforeach; ?>
-    </ul>
+        </ul>
     </div>
-        <?php endif; ?>
+    <?php endif; ?>
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>

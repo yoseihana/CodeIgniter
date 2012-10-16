@@ -32,11 +32,11 @@ class Prof extends CI_Controller {
 
             $idspec = $this->uri->segment(4);
             $dataList['profs'] = $this->M_Prof->listerSpec($idspec);
-            $dataLayout['titre'] = 'Liste des prof de '.$dataList['profs'][0]->specialite;
+            $dataList['titre'] = 'Adopte un prof - liste des profs de ' . $dataList['profs'][0]->specialite;
 
         }else{
             $dataList['profs'] = $this->M_Prof->lister(); //Va reprendre les données SQL demander dans m_prof et la methode lister
-            $dataLayout['titre'] = 'Accueil';
+            $dataList['titre'] = 'Liste de tous les profs';
         }
 
         $dataList['deja_adoptes'] = $this->session->userdata('deja_adoptes');
@@ -52,7 +52,8 @@ class Prof extends CI_Controller {
 
         $dataProf['prof']=$this->M_Prof->voir($id_prof);
         $dataLayout['titre'] = 'Fiche '.$dataProf['prof']->nom.' '.$dataProf['prof']->prenom;
-
+        $dataLayout['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+        
         $dataLayout['vue'] = $this->load->view('voir', $dataProf, true);
 
         $this->load->view('layout', $dataLayout);
@@ -79,7 +80,16 @@ class Prof extends CI_Controller {
 
     public function libere()
     {
+        $id = $this->uri->segment(3);
+        $deja_adopte = $this->session->userdata('deja_adoptes');
+        unset($deja_adopte[$id]);
 
+        //Supprime tout ce qui avait déjà été adopté
+        $this->session->unset_userdata('deja_adoptes');
+
+        //Re création du tableau deja_adoptes avec les éléments qui restent
+        $this->session->set_userdata('deja_adoptes', $deja_adopte);
+        redirect('/prof/lister/');
     }
 }
 
