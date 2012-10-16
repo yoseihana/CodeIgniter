@@ -1,0 +1,6 @@
+#On démarre le module de réécriture
+RewriteEngine on
+#Condition de réécriture
+RewriteCond $1 !^(index\.php|images|web|robots\.txt)
+#Réecriture [L]  = règle finale
+RewriteRule ^(.*)$ index.php/$1 [L]
