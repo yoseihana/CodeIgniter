@@ -25,16 +25,35 @@ class Prof extends CI_Controller {
     public function lister()
     {
         $this->load->model('M_Prof');
-        $dataList['profs'] = $this->M_Prof->lister(); //Va reprendre les données SQL demander dans m_prof et la methode lister
 
-        $dataLayout['vue'] = $this->load->view('lister', $dataList, true); //True = récupérer la vue comme une chaine de caractère, on envoie les vues à chargée
+        $uriSegement = $this->uri->segment(3);
+
+        if($uriSegement == 'spec'){
+
+            $idspec = $this->uri->segment(4);
+
+            $dataList['profs'] = $this->M_Prof->listerSpec($idspec);
+
+        }else{
+            $dataList['profs'] = $this->M_Prof->lister(); //Va reprendre les données SQL demander dans m_prof et la methode lister
+        }
+
+        $dataLayout['vue'] = $this->load->view('lister_profs', $dataList, true); //True = récupérer la vue comme une chaine de caractère, on envoie les vues à chargée
         $dataLayout['titre'] = 'Accueil';
         $this->load->view('layout', $dataLayout); //Charger la vue finale
     }
 
-    public function test()
+    public function voir()
     {
-        $this->load->view('test');
+        $this->load->model('M_Prof');
+        $id_prof = $this->uri->segment(3);
+
+        $dataProf['prof']=$this->M_Prof->voir($id_prof);
+        $dataLayout['titre'] = 'Fiche '.$dataProf['prof']->nom.' '.$dataProf['prof']->prenom;
+
+        $dataLayout['vue'] = $this->load->view('voir_prof', $dataProf, true);
+
+        $this->load->view('layout', $dataLayout);
     }
 }
 
